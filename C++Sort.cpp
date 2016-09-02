@@ -5,16 +5,19 @@ void selection_sort(int *low, int *high)
 {
 	int *pnt1 = low; //Used to maintain pointer location for the cout statement.
 	int *pnt2 = low; //Used to maintain pointer location for the for-loop statements.
-	for (int i = 0; i < *high; i++, low++) //Counters used to properly count the number of times we need to iterate. Could not use *low != *high in the end since *high obviously changes.
+	
+	int count = high-low;
+
+	for (int i = 0; i < count; i++, low++) //Counters used to properly count the number of times we need to iterate. Could not use *low != *high in the end since *high obviously changes.
 	{
 		pnt2 = low + 1;
-		for (int j = i+1; j < *high ; j++, pnt2++) 
+		for (int j = i+1; j < count ; j++, pnt2++) 
 		{
 			if (*low > *pnt2)
 				swap(*low, *pnt2);
 		}
 	}
-	for (int k = 0; k < *high; k++, pnt1++)
+	for (int k = 0; k < count; k++, pnt1++)
 		cout << *pnt1 << endl;
 	
 }
@@ -57,7 +60,7 @@ int main()
 	int size = sizeof(numbers)/sizeof(numbers[0]);
 	//cout << "p12: " << *(p+19) << endl;
 	
-	selection_sort(&numbers[0], &size);
+	selection_sort(&numbers[0], &numbers[size-1]);
 	cout << endl;
 	cout << "Does value exist in memory: " << binary_search(&numbers[0], &numbers[size-1], 24) << endl;
 }
