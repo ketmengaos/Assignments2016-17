@@ -19,14 +19,11 @@ void selection_sort(int *low, int *high)
 	int *pnt2 = low; //Used to maintain pointer location for the for-loop statements.
 	int count = high-low; //Makes 'count' the number of variables.
 
-	for (int i = 0; i <= count; i++, low++) //Counters used to properly count the number of times we need to iterate. 
-	{
-		pnt2 = low + 1;
-		for (int j = i+1; j <= count ; j++, pnt2++) 
+	for (; (high-low) >= 0; low++) //Counters used to properly count the number of times we need to iterate. 
+		for (pnt2 = low+1; (high-pnt2) >= 0; pnt2++) 
 			if (*low > *pnt2)
 				swap(*low, *pnt2);
-	}
-	for (int k = 0; k <= count; k++, pnt1++)
+	for (; (high-pnt1) >= 0; pnt1++)
 		cout << *pnt1 << endl;
 }
 
@@ -51,20 +48,23 @@ int main()
 
 	cout << "Enter the amount of numbers you wish to sort: " << endl;
 	cin >> amount;
-	cout << endl <<  "Enter numbers to sort: (enter null to stop) " << endl;
+
+	cout << endl <<  "Enter numbers to sort:  " << endl;
 	
 	int numbers[amount];	
 
 	for (int i = 0; i < amount ;i++)
-	{
 		cin >> numbers[i];
-	}
 
 	cout << endl;
 
 	int size = sizeof(numbers)/sizeof(numbers[0]);
 	selection_sort(&numbers[0], &numbers[size-1]); //Selection_sort method.
+
 	cout << endl << "Enter an integer to find: ";
 	cin >> amount;
-	cout << "Does value exist in memory (returns 0 if it does not exist): " << binary_search(&numbers[0], &numbers[size-1], amount) << endl; //Tests binary_sort method.
+
+	if ( binary_search(&numbers[0], &numbers[size-1], amount) == 0 ) //Binary_search method. 
+		cout << "Value does not exist." << endl;
+	else cout << "Value exist at: " << binary_search(&numbers[0], &numbers[size-1], amount) << endl;
 }
